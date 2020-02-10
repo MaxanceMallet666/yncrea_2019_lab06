@@ -2,15 +2,20 @@ package yncrea.lab06.core.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 // TODO complete this implementation with the correct annotations, fields and methods.
 // The @JsonIgnoreProperties annotation is mandatory in our case because it helps the JSON Serialization
 // The @ManyToMany annotation is provided because it is not that easy ;)
 
+@Entity
 @JsonIgnoreProperties({ "books" })
 public class Author implements Comparable<Author> {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String firstname;
 
@@ -19,6 +24,8 @@ public class Author implements Comparable<Author> {
     @ManyToMany(mappedBy = "authors")
     private List<Book> books;
 
+    public Author() {
+    }
 
     public Author(final String firstname, final String lastname) {
         this.firstname = firstname;
